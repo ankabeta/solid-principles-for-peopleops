@@ -10,6 +10,8 @@ Robert C. Martin, popularly known as "Uncle Bob", brought together the solutions
 and presented SOLID to the software community by gathering all the solutions to these problems under 5 main headings in the early 2000s.
 Since then, it has become one of the software principles that have been accepted and used with the most attention. 
 The word SOLID is formed by the combination of the initials of 5 basic titles.
+
+![etiket](https://github.com/ankabeta/solid-principles-for-peopleops/blob/main/Images/2.png)
  
 1. **Single Responsibility:** Our classes should have a single well-defined responsibility. 
 2. **Open / Closed:** Our classes are closed to change, but should be open to the addition of new behaviors.
@@ -17,6 +19,7 @@ The word SOLID is formed by the combination of the initials of 5 basic titles.
 4. **Interface Segregation:** We should prefer to create more specialized contracts rather than a single general-purpose contract.
 5. **Dependency Inversion:** In layered architectures, upper level modules should not be directly dependent on lower level modules.
  
+![etiket](https://github.com/ankabeta/solid-principles-for-peopleops/blob/main/Images/3.png)
 
 # 1. Single Responsibility Principle (SRP)
 
@@ -24,6 +27,8 @@ The word SOLID is formed by the combination of the initials of 5 basic titles.
 
 Classes should only have one role and / or responsibility. A class should only deal with one operation.
 For example; The user class should contain only the basic features of the user. Adding the user class to the database is the task of a separate class. For this it must be the UserDb class. The user's database operations belong to this class. In addition, after the user is added to the db or the moment of adding, all log operations that write errors that may occur should be kept in the LogDb class. The User class must be used for a single task. It may also be the retention of the User's information.
+ 
+![etiket](https://github.com/ankabeta/solid-principles-for-peopleops/blob/main/Images/3.png)
  
 The interface below does more than one thing. Searching and ending the call is a separate job. Receiving and sending data is a separate job. These two jobs must be separated.
  
@@ -57,6 +62,8 @@ interface Connection
 
 Classes must be expandable but not modifiable. To elaborate, a new field should be able to be added to a class. But existing fields should not be changed. There may be other classes using existing fields. The change made can affect other classes.
 For example; Let there be a field where we keep the user type belonging to the user class. You want to determine the password rules according to this user type. If the user registered by mail, use an 8 character password rule. If registered with Facebook or Google, no password rule. Let the GetPasswordRule method take shape according to this user type. However, we may ask users who have commented anonymously in the future to be registered in the database. This type of users will not need a password, either. For this reason, it is necessary to add anonymous users to the if in the GetPasswordRule method where Facebook google users are located. This will cause us to make changes in our current method. We cannot predict what consequences these changes will have in the future. For this reason, changing a class or method can cause undesirable results. The solution is to create a separate class for each user type. These user types use the User class as base class. Since each user type has a separate class, the GetPasswordRule method can be set separately for these users.
+ 
+![etiket](https://github.com/ankabeta/solid-principles-for-peopleops/blob/main/Images/4.png)
  
 Let's examine a separate example software.
 In the example below, transactions have been made according to the account type. These transactions are managed with if-else conditions. However, in every new incoming account type, a new line must be added to the if else block. This breaks the condition of being closed to change.
@@ -126,6 +133,8 @@ If a new account type arrives, a new class of this type will be created instead 
 
 Derived classes should be replaced with their base classes. Expecting subclass objects to behave the same when they replace objects of the parent. Objects derived from a base class are expected to have all properties belonging to this base class.
 As an example, let's create the Bird class. Let this be our Fly () method belonging to the bird class. The Eagle class derived from this bird class can use the Fly () method without difficulty. But when we create the Penguin class, penguins should not be derived from the Bird class, as they cannot fly. Instead, a separate base class should be created for birds that can fly. This base class can also be derived from the Bird class. In this way, we will have two base classes. To be for birds and birds that can fly. The eagle will use flying birds as its base class, while the penguin will use only the birds base class. What should not be forgotten here is the base class of birds that can fly.
+
+![etiket](https://github.com/ankabeta/solid-principles-for-peopleops/blob/main/Images/5.png)
  
  ```
  public interface IDuck
@@ -169,6 +178,8 @@ If we examine the example below, As you can see, there are two examples of ducks
 
 Thanks to this principle, large interfaces are divided into smaller parts. Lower-level classes should only use methods that work for them. If they are derived from large interfaces, they will have to use many processes that they do not need and will not use.
 In short, this principle states that interfaces should be kept as small as possible.
+
+![etiket](https://github.com/ankabeta/solid-principles-for-peopleops/blob/main/Images/6.png)
  
 The interface below does multiple jobs. Classes derived from this interface will have to use all methods. Instead, these interfaces should be divided into smaller business units.
  
@@ -198,7 +209,8 @@ interface Feedable{
 *"In layered architectures, upper level modules should not be directly dependent on lower level modules."*
 
 All dependencies should be carried out through abstractions. These abstractions can be created with abstarct methods or interfaces. The aim here is to eliminate the problems that may arise due to the dependence of upper level modules on lower levels. In other words, the aim is to prevent any changes made at the lower level from the upper level code change or its loyalties.
- 
+
+![etiket](https://github.com/ankabeta/solid-principles-for-peopleops/blob/main/Images/7.png)
 
 For example, if we have a user and two classes that register this user in db, named People and PeopleDb, since these two classes are linked to each other, we will only need to operate with the People class that meets certain conditions. But if we want to register the Admin to db, we will not be able to do this because the PeopleDb class is connected to the People class. Instead, we can abstract these dependencies by deriving the People class from an interface. Thus, our Employee and Admin classes can be processed with the PeopleDb class via this interface.
  
